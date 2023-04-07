@@ -9,29 +9,25 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export default function GaragesPage() {
-  const [orderBy, setOrderBy] = useState<keyof Garage>("name");
-  const [direction, setDirection] = useState<"asc" | "desc">("asc");
-  const [garages, setGarages] = useState<Garage[] | undefined>(undefined);
+  const [orderBy, setOrderBy] = useState<string | undefined>("name");
+  const [direction, setDirection] = useState<string | undefined>("asc");
   const {
-    data: backendGarages,
+    data: garages,
     isLoading,
     error,
+    refetch,
   } = useQuery<Garage[]>(["garage"], () =>
-    axios.get("/garage").then(r => r.data)
+    axios
+      .get(
+        "/garage" +
+          (orderBy ? `?orderBy=${orderBy}&direction=${direction}` : "")
+      )
+      .then(r => r.data)
   );
 
   useEffect(() => {
-    if (!backendGarages) return;
-    setGarages(
-      [...backendGarages].sort((a, b) => {
-        if (direction === "asc") {
-          return a[orderBy]! > b[orderBy]! ? 1 : -1;
-        } else {
-          return a[orderBy]! < b[orderBy]! ? 1 : -1;
-        }
-      })
-    );
-  }, [backendGarages, orderBy, direction]);
+    refetch();
+  }, [orderBy, direction]);
 
   return (
     <Layout>
@@ -42,16 +38,13 @@ export default function GaragesPage() {
       <h1 className="text-4xl mb-4">Garages</h1>
       <div className="mb-4">
         Order by
-        <select
-          value={orderBy}
-          onChange={ev => setOrderBy(ev.target.value as "name" | "location")}
-        >
+        <select value={orderBy} onChange={ev => setOrderBy(ev.target.value)}>
           <option value="name">Name</option>
           <option value="location">Location</option>
         </select>
         <select
           value={direction}
-          onChange={ev => setDirection(ev.target.value as "asc" | "desc")}
+          onChange={ev => setDirection(ev.target.value)}
         >
           <option value="asc">ascending</option>
           <option value="desc">descending</option>
