@@ -1,3 +1,7 @@
+export interface PaginatedData<T> {
+  data: T[];
+  total: number;
+}
 
 export interface Garage {
   id: number;
