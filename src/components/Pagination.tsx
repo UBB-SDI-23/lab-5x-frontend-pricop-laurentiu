@@ -29,7 +29,7 @@ export default function Pagination({
           "border border-purple-400 rounded " +
           className +
           " " +
-          (isHuge ? "flex" : "inline-block")
+          (isHuge ? "inline-block" : "inline-block")
         }
       >
         {page !== 0 && (
