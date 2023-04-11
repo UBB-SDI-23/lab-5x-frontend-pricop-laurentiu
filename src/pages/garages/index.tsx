@@ -65,8 +65,8 @@ export default function GaragesPage() {
       </div>
 
       {!isLoading && (
-        <Pagination className="mb-3" take={take} total={1_000_000} />
-        // <Pagination className="mb-3" take={take} total={garages!.total} />
+        // <Pagination className="mb-3" take={take} total={1_000_000} />
+        <Pagination className="mb-3" take={take} total={garages!.total} />
       )}
       {(error as any) && <div className="text-red-500">{error as any}</div>}
       {isFetching && <LoadingSpinner />}
