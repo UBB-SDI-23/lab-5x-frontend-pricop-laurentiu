@@ -15,7 +15,7 @@ export default function GaragesBiggestPage() {
 
   const {
     data: garages,
-    isLoading,
+    isFetching,
     error,
     refetch,
   } = useQuery(["garage", "biggestGarages"], () =>
@@ -31,7 +31,8 @@ export default function GaragesBiggestPage() {
   return (
     <Layout>
       <h1 className="text-4xl mb-4">Biggest garages</h1>
-      {!isLoading && (
+      {isFetching && <LoadingSpinner />}
+      {!isFetching && (
         <Pagination
           className="mb-3"
           total={garages!.total}
@@ -39,9 +40,8 @@ export default function GaragesBiggestPage() {
           take={take}
         />
       )}
-      {isLoading && <LoadingSpinner />}
       {(error as any) && <div className="text-red-500">{error as any}</div>}
-      {garages && (
+      {!isFetching && garages && (
         <div className="grid grid-cols-3 gap-4">
           {garages.data.map(garage => (
             <div className="border rounded-xl border-slate-300 p-5">

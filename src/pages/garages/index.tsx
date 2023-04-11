@@ -20,7 +20,6 @@ export default function GaragesPage() {
 
   const {
     data: garages,
-    isLoading,
     isFetching,
     error,
     refetch,
@@ -64,12 +63,11 @@ export default function GaragesPage() {
         </select>
       </div>
 
-      {!isLoading && (
-        // <Pagination className="mb-3" take={take} total={1_000_000} />
+      {isFetching && <LoadingSpinner />}
+      {!isFetching && (
         <Pagination className="mb-3" take={take} total={garages!.total} />
       )}
       {(error as any) && <div className="text-red-500">{error as any}</div>}
-      {isFetching && <LoadingSpinner />}
       {!isFetching && garages && (
         <div className="grid grid-cols-3 gap-4">
           {garages.data.map(garage => (
