@@ -13,7 +13,7 @@ import useRouteQuery from "../../lib/hooks/useRouteQuery";
 export default function GaragesPage() {
   const [query, modifyQuery] = useRouteQuery();
 
-  const take = parseInt(query.take ?? "8");
+  const take = parseInt(query.take ?? "14");
   const skip = parseInt(query.skip ?? "0");
   const orderBy = query.orderBy ?? "name";
   const direction = query.direction ?? "asc";
