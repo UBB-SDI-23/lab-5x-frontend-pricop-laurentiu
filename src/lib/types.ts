@@ -16,7 +16,5 @@ export interface BiggestGarage {
   id: number;
   name: string;
   location: string;
-  _count: {
-    buses: number;
-  };
+  busCount: number;
 }

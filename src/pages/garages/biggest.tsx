@@ -10,7 +10,7 @@ import { useEffect } from "react";
 export default function GaragesBiggestPage() {
   const [query, modifyQuery] = useRouteQuery();
 
-  const take = parseInt(query.take ?? "8");
+  const take = parseInt(query.take ?? "12");
   const skip = parseInt(query.skip ?? "0");
 
   const {
@@ -46,7 +46,7 @@ export default function GaragesBiggestPage() {
           {garages.data.map(garage => (
             <div className="border rounded-xl border-slate-300 p-5">
               <div className="text-2xl">{garage.name}</div>
-              <div>with a total of {garage._count.buses} buses</div>
+              <div>with a total of {garage.busCount} buses</div>
             </div>
           ))}
         </div>
