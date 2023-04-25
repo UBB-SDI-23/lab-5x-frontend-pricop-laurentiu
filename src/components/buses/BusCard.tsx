@@ -1,14 +1,13 @@
-import { useEffect, useState } from "react";
-import { Bus, BusFuel, Garage } from "../../lib/types";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { Bus, BusFuel } from "../../lib/types";
+import { useMutation, useQueryClient } from "react-query";
 import { axios } from "../../lib/axios";
 import { useNavigate } from "react-router-dom";
 import Button from "../ui/Button";
 
-export default function GarageCard({ bus }: { bus: Bus }) {
+export default function BusCard({ bus }: { bus: Bus }) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const mutation = useMutation((_: { mode: "delete" }) => axios.delete(`/garage/${bus!.id}`), {
+  const mutation = useMutation((_: { mode: "delete" }) => axios.delete(`/bus/${bus!.id}`), {
     onSuccess() {
       queryClient.invalidateQueries(["bus"]);
     },

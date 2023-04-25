@@ -6,6 +6,8 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import GaragesBiggestPage from "./pages/garages/biggest";
 import BusesPage from "./pages/buses";
 import AddEditBusPage from "./pages/buses/add-edit";
+import LinesPage from "./pages/lines";
+import AddEditLinePage from "./pages/lines/add-edit";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,18 @@ const router = createBrowserRouter([
   {
     path: "/buses/add",
     element: <AddEditBusPage />,
+  },
+  {
+    path: "/lines",
+    element: <LinesPage />,
+  },
+  {
+    path: "/lines/edit/:id",
+    element: <AddEditLinePage />,
+  },
+  {
+    path: "/lines/add",
+    element: <AddEditLinePage />,
   },
 ]);
 

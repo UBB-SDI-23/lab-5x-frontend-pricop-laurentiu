@@ -64,20 +64,26 @@ export default function RelationSelector<T extends Record<string, any>>({
             />
             <div className="p-2 px-1 h-80 overflow-y-auto">
               {isFetching && <LoadingSpinner />}
-              {!isFetching &&
-                entities &&
-                entities!.data.map(ent => (
-                  <button
-                    key={ent.id}
-                    className="w-full border border-purple-200 p-1 px-2 text-sm"
-                    onClick={() => handleSelect(ent)}
-                    type="button"
-                  >
-                    {ent[propertyName]}
-                  </button>
-                ))}
-              {!isFetching && !entities?.data.length && (
-                <div className="text-sm text-gray-500 text-center">Nothing found...</div>
+              {!isFetching && (
+                <>
+                  {entities &&
+                    entities!.data.map(ent => (
+                      <button
+                        key={ent.id}
+                        className="w-full border border-purple-200 p-1 px-2 text-sm"
+                        onClick={() => handleSelect(ent)}
+                        type="button"
+                      >
+                        {ent[propertyName]}
+                      </button>
+                    ))}
+                  {!!entities?.data.length && entities.data.length !== entities.total && (
+                    <div className="text-sm text-gray-500 text-center mt-2">
+                      Not what you're looking for? Refine your search.
+                    </div>
+                  )}
+                  {!entities?.data.length && <div className="text-sm text-gray-500 text-center">Nothing found...</div>}
+                </>
               )}
             </div>
           </div>

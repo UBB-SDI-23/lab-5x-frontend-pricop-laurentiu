@@ -12,12 +12,13 @@ const links = [
     href: "/buses",
     text: "Buses",
   },
+  {
+    href: "/lines",
+    text: "Lines",
+  },
 ];
 
-export default function Layout({
-  children,
-  isLoading = false,
-}: { isLoading?: boolean } & PropsWithChildren) {
+export default function Layout({ children, isLoading = false }: { isLoading?: boolean } & PropsWithChildren) {
   return (
     <>
       <Title>MPP UBB</Title>
@@ -36,11 +37,7 @@ export default function Layout({
         </div>
       </div>
       <div className="container mx-auto px-3 py-6 relative">
-        {isLoading ? (
-          <LoadingSpinner className="flex justify-center" />
-        ) : (
-          children
-        )}
+        {isLoading ? <LoadingSpinner className="flex justify-center" /> : children}
       </div>
     </>
   );

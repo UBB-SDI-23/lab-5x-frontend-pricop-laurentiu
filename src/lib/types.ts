@@ -41,3 +41,15 @@ export interface Bus {
   garageId: number;
   garage?: Garage;
 }
+
+export interface Line {
+  id: number;
+  name: string;
+  startName: string;
+  endName: string;
+  monthlyRidership: number;
+  startGarageId: number;
+  endGarageId: number;
+  startGarage?: Garage;
+  endGarage?: Garage;
+}
