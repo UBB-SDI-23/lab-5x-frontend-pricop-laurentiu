@@ -13,7 +13,7 @@ import StationCard from "../../components/stations/StationCard";
 export default function StationsPage() {
   const [query] = useRouteQuery();
 
-  const take = parseInt(query.take ?? "14");
+  const take = parseInt(query.take ?? "15");
   const skip = parseInt(query.skip ?? "0");
 
   const {
