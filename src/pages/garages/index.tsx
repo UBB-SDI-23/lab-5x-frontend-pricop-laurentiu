@@ -4,11 +4,11 @@ import GarageCard from "../../components/garages/GarageCard";
 import { Garage, PaginatedData } from "../../lib/types";
 import { useQuery } from "react-query";
 import LoadingSpinner from "../../components/LoadingSpinner";
-import Button from "../../components/Button";
-import { Link, useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import Pagination from "../../components/Pagination";
 import useRouteQuery from "../../lib/hooks/useRouteQuery";
+import Button from "../../components/ui/Button";
 
 export default function GaragesPage() {
   const [query, modifyQuery] = useRouteQuery();

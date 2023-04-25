@@ -18,3 +18,26 @@ export interface BiggestGarage {
   location: string;
   busCount: number;
 }
+
+export enum BusFuel {
+  diesel = "DIESEL",
+  batteryElectric = "BATTERY_ELECTRIC",
+  cableElectric = "CABLE_ELECTRIC",
+}
+
+export const BusFuelHumanized: Record<BusFuel, string> = {
+  BATTERY_ELECTRIC: "Battery Electric",
+  CABLE_ELECTRIC: "Cable Electric",
+  DIESEL: "Diesel",
+};
+
+export interface Bus {
+  id: number;
+  manufacturer: string;
+  model: string;
+  fuel: BusFuel;
+  inventoryNum: string;
+  licensePlate: string;
+  garageId: number;
+  garage?: Garage;
+}

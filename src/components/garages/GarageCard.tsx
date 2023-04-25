@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Garage } from "../../lib/types";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { axios } from "../../lib/axios";
-import Button from "../Button";
+import Button from "../ui/Button";
 
 export default function GarageCard({
   garage,

@@ -1,15 +1,23 @@
 import React, { PropsWithChildren } from "react";
 import { Title } from "react-head";
 import { Link } from "react-router-dom";
+import LoadingSpinner from "./LoadingSpinner";
 
 const links = [
   {
     href: "/garages",
     text: "Garages",
   },
+  {
+    href: "/buses",
+    text: "Buses",
+  },
 ];
 
-export default function Layout({ children }: PropsWithChildren) {
+export default function Layout({
+  children,
+  isLoading = false,
+}: { isLoading?: boolean } & PropsWithChildren) {
   return (
     <>
       <Title>MPP UBB</Title>
@@ -27,7 +35,13 @@ export default function Layout({ children }: PropsWithChildren) {
           {/* <span className="px-3">Logout</span> */}
         </div>
       </div>
-      <div className="container mx-auto px-3 py-6">{children}</div>
+      <div className="container mx-auto px-3 py-6 relative">
+        {isLoading ? (
+          <LoadingSpinner className="flex justify-center" />
+        ) : (
+          children
+        )}
+      </div>
     </>
   );
 }

@@ -1,6 +1,8 @@
-export default function LoadingSpinner() {
+import { HTMLProps } from "react";
+
+export default function LoadingSpinner(props: HTMLProps<HTMLDivElement>) {
   return (
-    <div role="status">
+    <div role="status" {...props}>
       <svg
         aria-hidden="true"
         className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
