@@ -16,6 +16,10 @@ const links = [
     href: "/lines",
     text: "Lines",
   },
+  {
+    href: "/stations",
+    text: "Stations",
+  },
 ];
 
 export default function Layout({ children, isLoading = false }: { isLoading?: boolean } & PropsWithChildren) {

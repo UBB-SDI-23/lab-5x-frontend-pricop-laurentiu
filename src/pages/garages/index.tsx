@@ -57,7 +57,7 @@ export default function GaragesPage() {
       {!isFetching && <Pagination className="mb-3" take={take} total={garages!.total} />}
       {(error as any) && <div className="text-red-500">{error as any}</div>}
       {!isFetching && garages && (
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {garages.data.map(garage => (
             <GarageCard key={garage.id} garage={garage} />
           ))}

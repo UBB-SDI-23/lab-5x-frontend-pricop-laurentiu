@@ -19,9 +19,7 @@ export default function GaragesBiggestPage() {
     error,
     refetch,
   } = useQuery(["garage", "biggestGarages"], () =>
-    axios
-      .get(`/garage/biggestGarages?take=${take}&skip=${skip}`)
-      .then(r => r.data as PaginatedData<BiggestGarage>)
+    axios.get(`/garage/biggestGarages?take=${take}&skip=${skip}`).then(r => r.data as PaginatedData<BiggestGarage>)
   );
 
   useEffect(() => {
@@ -32,17 +30,10 @@ export default function GaragesBiggestPage() {
     <Layout>
       <h1 className="text-4xl mb-4">Biggest garages</h1>
       {isFetching && <LoadingSpinner />}
-      {!isFetching && (
-        <Pagination
-          className="mb-3"
-          total={garages!.total}
-          skip={skip}
-          take={take}
-        />
-      )}
+      {!isFetching && <Pagination className="mb-3" total={garages!.total} skip={skip} take={take} />}
       {(error as any) && <div className="text-red-500">{error as any}</div>}
       {!isFetching && garages && (
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {garages.data.map(garage => (
             <div className="border rounded-xl border-slate-300 p-5">
               <div className="text-2xl">{garage.name}</div>

@@ -8,6 +8,7 @@ import BusesPage from "./pages/buses";
 import AddEditBusPage from "./pages/buses/add-edit";
 import LinesPage from "./pages/lines";
 import AddEditLinePage from "./pages/lines/add-edit";
+import StationsPage from "./pages/stations";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
     path: "/lines/add",
     element: <AddEditLinePage />,
   },
+  {
+    path: "/stations",
+    element: <StationsPage />,
+  },
 ]);
 
 function App() {
@@ -53,6 +58,7 @@ function App() {
     defaultOptions: {
       queries: {
         retry: false,
+        refetchOnWindowFocus: false,
       },
     },
   });

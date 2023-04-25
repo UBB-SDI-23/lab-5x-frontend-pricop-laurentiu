@@ -1,28 +1,29 @@
 import React, { useEffect } from "react";
 import Layout from "../../components/Layout";
 import useRouteQuery from "../../lib/hooks/useRouteQuery";
-import { Bus, Line, PaginatedData } from "../../lib/types";
+import { PaginatedData, Station } from "../../lib/types";
 import { useQuery } from "react-query";
 import { axios } from "../../lib/axios";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import Pagination from "../../components/Pagination";
-import BusCard from "../../components/buses/BusCard";
 import { Link } from "react-router-dom";
 import Button from "../../components/ui/Button";
-import LineCard from "../../components/lines/LineCard";
+import StationCard from "../../components/stations/StationCard";
 
-export default function LinesPage() {
+export default function StationsPage() {
   const [query] = useRouteQuery();
 
-  const take = parseInt(query.take ?? "16");
+  const take = parseInt(query.take ?? "14");
   const skip = parseInt(query.skip ?? "0");
 
   const {
-    data: lines,
+    data: stations,
     isFetching,
     error,
     refetch,
-  } = useQuery<PaginatedData<Line>>(["line"], () => axios.get(`/line?&take=${take}&skip=${skip}`).then(r => r.data));
+  } = useQuery<PaginatedData<Station>>(["station"], () =>
+    axios.get(`/station?&take=${take}&skip=${skip}`).then(r => r.data)
+  );
 
   useEffect(() => {
     refetch();
@@ -30,24 +31,20 @@ export default function LinesPage() {
 
   return (
     <Layout>
-      <Link to="/lines/add">
-        <Button type="button" className="float-right">
-          Add
-        </Button>
-      </Link>
-      <h1 className="text-4xl mb-4">Lines</h1>
+      <h1 className="text-4xl mb-4">Stations</h1>
 
       {isFetching && <LoadingSpinner />}
-      {!isFetching && <Pagination className="mb-3" take={take} total={lines!.total} />}
+      {!isFetching && <Pagination className="mb-3" take={take} total={stations!.total} />}
       {(error as any) && <div className="text-red-500">{error as any}</div>}
-      {!isFetching && lines && (
+      {!isFetching && stations && (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-3">
-            {lines.data.map(line => (
-              <LineCard line={line} />
+            {stations.data.map(station => (
+              <StationCard station={station} key={station.id} />
             ))}
+            <StationCard isNew={true} />
           </div>
-          <Pagination className="mb-3" take={take} total={lines!.total} />
+          <Pagination className="mb-3" take={take} total={stations!.total} />
         </>
       )}
     </Layout>

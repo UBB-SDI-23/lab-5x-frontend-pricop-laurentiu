@@ -52,4 +52,27 @@ export interface Line {
   endGarageId: number;
   startGarage?: Garage;
   endGarage?: Garage;
+  lineStops?: LineStop[];
+}
+
+export interface Station {
+  id: number;
+  name: string;
+
+  lineStops?: LineStop[];
+}
+
+export enum LineStopDirection {
+  trip = "TRIP",
+  roundTrip = "ROUND-TRIP",
+}
+
+export interface LineStop {
+  id: number;
+  stationId: number;
+  lineId: number;
+  direction: LineStopDirection;
+  isServicedInWeekends: boolean;
+  station?: Station;
+  line?: Line;
 }

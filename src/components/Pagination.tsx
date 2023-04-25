@@ -25,27 +25,15 @@ export default function Pagination({
   return (
     <>
       <div
-        className={
-          "border border-purple-400 rounded " +
-          className +
-          " " +
-          (isHuge ? "inline-block" : "inline-block")
-        }
+        className={"border border-purple-400 rounded " + className + " " + (isHuge ? "inline-block" : "inline-block")}
       >
         {page !== 0 && (
-          <button
-            className="p-2 px-3 border-r border-purple-400"
-            onClick={() => goTo(page - 1)}
-          >
+          <button className="p-2 px-3 border-r border-purple-400" onClick={() => goTo(page - 1)}>
             Prev
           </button>
         )}
-        {pageCount < 15 && (
-          <NormalPagination onPage={goTo} page={page} pageCount={pageCount} />
-        )}
-        {pageCount >= 15 && (
-          <HugePagination onPage={goTo} page={page} pageCount={pageCount} />
-        )}
+        {pageCount < 15 && <NormalPagination onPage={goTo} page={page} pageCount={pageCount} />}
+        {pageCount >= 15 && <HugePagination onPage={goTo} page={page} pageCount={pageCount} />}
         {page !== pageCount - 1 && (
           <button className="p-2 px-3" onClick={() => goTo(page + 1)}>
             Next
@@ -72,10 +60,7 @@ function NormalPagination({
         .map((_, idx) => (
           <>
             <button
-              className={
-                "p-2 px-3 border-r border-purple-400 last:border-0" +
-                (page === idx ? " bg-purple-100" : "")
-              }
+              className={"p-2 px-3 border-r border-purple-400 last:border-0" + (page === idx ? " bg-purple-100" : "")}
               onClick={() => onPage(idx)}
             >
               {idx + 1}
@@ -98,10 +83,7 @@ function HugePagination({
   const PageButton = ({ pageIdx }: { pageIdx: number }) => (
     <>
       <button
-        className={
-          "p-2 px-3 border-r border-purple-400 last:border-0" +
-          (page === pageIdx ? " bg-purple-100" : "")
-        }
+        className={"p-2 px-3 border-r border-purple-400 last:border-0" + (page === pageIdx ? " bg-purple-100" : "")}
         onClick={() => onPage(pageIdx)}
       >
         {pageIdx + 1}
@@ -109,9 +91,7 @@ function HugePagination({
     </>
   );
 
-  const Dots = () => (
-    <div className="inline-block p-2 px-3 border-r border-purple-400">...</div>
-  );
+  const Dots = () => <div className="inline-block p-2 px-3 border-r border-purple-400">...</div>;
 
   return (
     <>
@@ -119,7 +99,7 @@ function HugePagination({
         .fill(0)
         .map((_, idx) => idx)
         .map(pageIdx => (
-          <PageButton pageIdx={pageIdx} />
+          <PageButton pageIdx={pageIdx} key={pageIdx} />
         ))}
       <Dots />
       {page >= 3 && page <= pageCount - 4 && (
@@ -129,7 +109,7 @@ function HugePagination({
             .map((_, idx) => page - 2 + idx)
             .filter(p => p >= 3 && p <= pageCount - 4)
             .map(pageIdx => (
-              <PageButton pageIdx={pageIdx} />
+              <PageButton pageIdx={pageIdx} key={pageIdx} />
             ))}
           <Dots />
         </>
@@ -138,7 +118,7 @@ function HugePagination({
         .fill(0)
         .map((_, idx) => pageCount - 3 + idx)
         .map(pageIdx => (
-          <PageButton pageIdx={pageIdx} />
+          <PageButton pageIdx={pageIdx} key={pageIdx} />
         ))}
     </>
   );

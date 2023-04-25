@@ -41,7 +41,7 @@ export default function BusesPage() {
       {(error as any) && <div className="text-red-500">{error as any}</div>}
       {!isFetching && buses && (
         <>
-          <div className="grid grid-cols-3 gap-4 mb-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-3">
             {buses.data.map(bus => (
               <BusCard key={bus.id} bus={bus} />
             ))}
