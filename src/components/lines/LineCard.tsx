@@ -46,7 +46,7 @@ export default function LineCard({ line }: { line: Line }) {
         <i className="bi-arrow-left mr-1"></i>
         {line.endGarage?.name}
       </div>
-      <div className="flex gap-1 text-sm">
+      <div className="flex gap-1 text-sm mb-1">
         <div>
           <i className="bi-signpost"></i>:
         </div>
@@ -58,6 +58,10 @@ export default function LineCard({ line }: { line: Line }) {
           <i className="bi-arrow-up"></i>
           {line.lineStops?.filter(stop => stop.direction === LineStopDirection.roundTrip).length}
         </div>
+      </div>
+      <div className="text-sm mb-1">
+        <i className="bi-people mr-1"></i>
+        {line.monthlyRidership} riders / mo
       </div>
     </div>
   );

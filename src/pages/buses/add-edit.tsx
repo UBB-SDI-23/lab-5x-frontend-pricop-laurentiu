@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Layout from "../../components/Layout";
 import { Bus, BusFuel, BusFuelHumanized, Garage } from "../../lib/types";
 import { QueryClient, useQuery, useQueryClient } from "react-query";
-import { axios } from "../../lib/axios";
+import { axios, handleError } from "../../lib/axios";
 import { ErrorMessage, Field, Formik, FormikProps } from "formik";
 import Input from "../../components/ui/Input";
 import Select from "../../components/ui/Select";
@@ -37,13 +37,17 @@ export default function AddEditBusPage() {
   });
 
   const saveChanges = async ({ id, garage, ...bus }: Record<keyof Bus, string>) => {
-    if (isEdit) {
-      await axios.patch(`/bus/${id}`, bus);
-    } else {
-      await axios.post(`/bus`, bus);
+    try {
+      if (isEdit) {
+        await axios.patch(`/bus/${id}`, bus);
+      } else {
+        await axios.post(`/bus`, bus);
+      }
+      queryClient.invalidateQueries(["bus"]);
+      navigate("/buses");
+    } catch (err) {
+      handleError(err);
     }
-    queryClient.invalidateQueries(["bus"]);
-    navigate("/buses");
   };
 
   const errorComponent = (name: string) => (

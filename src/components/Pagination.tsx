@@ -1,14 +1,18 @@
+import classNames from "classnames";
 import useRouteQuery from "../lib/hooks/useRouteQuery";
+import Select from "./ui/Select";
 
 export default function Pagination({
   total,
   take,
   skip,
+  takeValues = [16, 20, 24, 28, 32],
   className,
 }: {
   total: number;
   take?: number;
   skip?: number;
+  takeValues?: number[];
   className?: string;
 }) {
   const [query, mergeQuery] = useRouteQuery();
@@ -21,12 +25,14 @@ export default function Pagination({
   const goTo = (toPage: number) => {
     mergeQuery({ skip: (toPage * take!).toString() });
   };
+  const setTakeValue = (take: number) => {
+    console.log({ take });
+    mergeQuery({ take: take.toString() });
+  };
 
   return (
-    <>
-      <div
-        className={"border border-purple-400 rounded " + className + " " + (isHuge ? "inline-block" : "inline-block")}
-      >
+    <div className={classNames("flex gap-1", className)}>
+      <div className={"border border-purple-400 rounded " + (isHuge ? "inline-block" : "inline-block")}>
         {page !== 0 && (
           <button className="p-2 px-3 border-r border-purple-400" onClick={() => goTo(page - 1)}>
             Prev
@@ -40,7 +46,17 @@ export default function Pagination({
           </button>
         )}
       </div>
-    </>
+      <div className="">
+        <Select className="h-full" value={take} onChange={ev => setTakeValue(parseInt(ev.target.value))}>
+          {/* add take value in the list, remove duplicates, sort list */}
+          {[...new Set([...takeValues, take])].sort().map(takev => (
+            <option value={takev} key={takev}>
+              {takev}
+            </option>
+          ))}
+        </Select>
+      </div>
+    </div>
   );
 }
 

@@ -27,6 +27,8 @@ export default function BusesPage() {
     refetch();
   }, [take, skip]);
 
+  const takeValues = [15, 18, 21, 24, 27, 30, 33];
+
   return (
     <Layout>
       <Link to="/buses/add">
@@ -37,16 +39,16 @@ export default function BusesPage() {
       <h1 className="text-4xl mb-4">Buses</h1>
 
       {isFetching && <LoadingSpinner />}
-      {!isFetching && <Pagination className="mb-3" take={take} total={buses!.total} />}
       {(error as any) && <div className="text-red-500">{error as any}</div>}
       {!isFetching && buses && (
         <>
+          <Pagination className="mb-3" take={take} total={buses!.total} takeValues={takeValues} />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-3">
             {buses.data.map(bus => (
               <BusCard key={bus.id} bus={bus} />
             ))}
           </div>
-          <Pagination className="mb-3" take={take} total={buses!.total} />
+          <Pagination className="mb-3" take={take} total={buses!.total} takeValues={takeValues} />
         </>
       )}
     </Layout>
