@@ -18,6 +18,7 @@
     "react-overlays": "^5.2.1",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.10.0",
+    "react-toastify": "^9.1.2",
     "use-debounce": "^9.0.4",
     "yup": "^1.1.1"
   },

@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Layout from "../../components/Layout";
 import { Garage, Line, LineStopDirection, Station } from "../../lib/types";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { axios } from "../../lib/axios";
+import { axios, handleError } from "../../lib/axios";
 import { ErrorMessage, Field, Formik, FormikProps } from "formik";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
@@ -39,13 +39,17 @@ export default function AddEditLinePage() {
   );
 
   const saveChanges = async ({ id, startGarage, endGarage, ...line }: Record<keyof Line, string>) => {
-    if (isEdit) {
-      await axios.patch(`/line/${id}`, line);
-    } else {
-      await axios.post(`/line`, line);
+    try {
+      if (isEdit) {
+        await axios.patch(`/line/${id}`, line);
+      } else {
+        await axios.post(`/line`, line);
+      }
+      queryClient.invalidateQueries(["line", id]);
+      navigate("/lines");
+    } catch (err) {
+      handleError(err);
     }
-    queryClient.invalidateQueries(["line", id]);
-    navigate("/lines");
   };
 
   const errorComponent = (name: string) => (

@@ -9,6 +9,8 @@ import AddEditBusPage from "./pages/buses/add-edit";
 import LinesPage from "./pages/lines";
 import AddEditLinePage from "./pages/lines/add-edit";
 import StationsPage from "./pages/stations";
+import { toast, ToastContainer } from "react-toastify";
+import { handleError } from "./lib/axios";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +61,7 @@ function App() {
       queries: {
         retry: false,
         refetchOnWindowFocus: false,
+        onError: handleError,
       },
     },
   });
@@ -66,6 +69,7 @@ function App() {
     <HeadProvider>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
+        <ToastContainer />
       </QueryClientProvider>
     </HeadProvider>
   );
