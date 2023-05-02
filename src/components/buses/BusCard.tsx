@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { axios } from "../../lib/axios";
 import { useNavigate } from "react-router-dom";
 import Button from "../ui/Button";
+import UserBadge from "../ui/UserBadge";
 
 export default function BusCard({ bus }: { bus: Bus }) {
   const queryClient = useQueryClient();
@@ -54,6 +55,7 @@ export default function BusCard({ bus }: { bus: Bus }) {
         <i className="bi-house mr-2"></i>
         {bus.garage!.name}
       </div>
+      {bus.owner && <UserBadge user={bus.owner} />}
     </div>
   );
 }
