@@ -1,10 +1,20 @@
 import axiosLib from "axios";
 import { config } from "./config";
 import { toast } from "react-toastify";
+import CookieManager from "./cookie-manager";
 
-export const axios = axiosLib.create({
+export let axios = axiosLib.create({
   baseURL: config.apiBase,
 });
+
+const userToken = CookieManager.get("token");
+if (userToken) {
+  updateAxiosWithToken(userToken);
+}
+
+export function updateAxiosWithToken(token: string) {
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+}
 
 export function handleError(err: any) {
   console.log({ err });

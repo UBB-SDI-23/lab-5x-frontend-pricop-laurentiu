@@ -11,6 +11,9 @@ import AddEditLinePage from "./pages/lines/add-edit";
 import StationsPage from "./pages/stations";
 import { toast, ToastContainer } from "react-toastify";
 import { handleError } from "./lib/axios";
+import LoginPage from "./pages/auth/login";
+import { UserProvider } from "./lib/user-context";
+import AuthRedirect from "./components/AuthRedirect";
 
 const router = createBrowserRouter([
   {
@@ -18,40 +21,84 @@ const router = createBrowserRouter([
     element: <HomePage />,
   },
   {
+    path: "/login",
+    element: (
+      <AuthRedirect loggedIn="/buses">
+        <LoginPage />
+      </AuthRedirect>
+    ),
+  },
+  {
     path: "/garages",
-    element: <GaragesPage />,
+    element: (
+      <AuthRedirect notLoggedIn="/login">
+        <GaragesPage />
+      </AuthRedirect>
+    ),
   },
   {
     path: "/garages/biggest",
-    element: <GaragesBiggestPage />,
+    element: (
+      <AuthRedirect notLoggedIn="/login">
+        <GaragesBiggestPage />
+      </AuthRedirect>
+    ),
   },
   {
     path: "/buses",
-    element: <BusesPage />,
+    element: (
+      <AuthRedirect notLoggedIn="/login">
+        <BusesPage />
+      </AuthRedirect>
+    ),
   },
   {
     path: "/buses/edit/:id",
-    element: <AddEditBusPage />,
+    element: (
+      <AuthRedirect notLoggedIn="/login">
+        <AddEditBusPage />
+      </AuthRedirect>
+    ),
   },
   {
     path: "/buses/add",
-    element: <AddEditBusPage />,
+    element: (
+      <AuthRedirect notLoggedIn="/login">
+        <AddEditBusPage />
+      </AuthRedirect>
+    ),
   },
   {
     path: "/lines",
-    element: <LinesPage />,
+    element: (
+      <AuthRedirect notLoggedIn="/login">
+        <LinesPage />
+      </AuthRedirect>
+    ),
   },
   {
     path: "/lines/edit/:id",
-    element: <AddEditLinePage />,
+    element: (
+      <AuthRedirect notLoggedIn="/login">
+        <AddEditLinePage />
+      </AuthRedirect>
+    ),
   },
   {
     path: "/lines/add",
-    element: <AddEditLinePage />,
+    element: (
+      <AuthRedirect notLoggedIn="/login">
+        <AddEditLinePage />
+      </AuthRedirect>
+    ),
   },
   {
     path: "/stations",
-    element: <StationsPage />,
+    element: (
+      <AuthRedirect notLoggedIn="/login">
+        <StationsPage />
+      </AuthRedirect>
+    ),
   },
 ]);
 
@@ -68,8 +115,10 @@ function App() {
   return (
     <HeadProvider>
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-        <ToastContainer />
+        <UserProvider>
+          <RouterProvider router={router} />
+          <ToastContainer />
+        </UserProvider>
       </QueryClientProvider>
     </HeadProvider>
   );
