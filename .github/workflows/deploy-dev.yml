@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [ "main" ]
+    branches: ["dev"]
   workflow_dispatch:
 
 jobs:
@@ -8,7 +8,7 @@ jobs:
     name: deploy to dev
     runs-on: ubuntu-latest
     steps:
-    - uses: distributhor/workflow-webhook@v2
-      env:
-        webhook_url: ${{ secrets.WEBHOOK_URL }}
-        webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
+      - uses: distributhor/workflow-webhook@v2
+        env:
+          webhook_url: ${{ secrets.WEBHOOK_URL }}
+          webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
