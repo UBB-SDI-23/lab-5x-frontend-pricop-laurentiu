@@ -14,6 +14,7 @@ import { handleError } from "./lib/axios";
 import LoginPage from "./pages/auth/login";
 import { UserProvider } from "./lib/user-context";
 import AuthRedirect from "./components/AuthRedirect";
+import ProfilePage from "./pages/profile";
 
 const router = createBrowserRouter([
   {
@@ -97,6 +98,22 @@ const router = createBrowserRouter([
     element: (
       <AuthRedirect notLoggedIn="/login">
         <StationsPage />
+      </AuthRedirect>
+    ),
+  },
+  {
+    path: "/profile",
+    element: (
+      <AuthRedirect notLoggedIn="/login">
+        <ProfilePage />
+      </AuthRedirect>
+    ),
+  },
+  {
+    path: "/profile/:id",
+    element: (
+      <AuthRedirect notLoggedIn="/login">
+        <ProfilePage />
       </AuthRedirect>
     ),
   },

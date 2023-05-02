@@ -11,11 +11,12 @@ export interface User {
 }
 
 export interface UserProfile {
-  birthDate: Date;
+  birthDate: string;
   bio: string;
   gender: string;
   location: string;
   website: string;
+  user?: User;
 }
 
 export interface Garage {
