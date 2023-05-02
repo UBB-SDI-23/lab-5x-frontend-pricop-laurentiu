@@ -3,6 +3,21 @@ export interface PaginatedData<T> {
   total: number;
 }
 
+export interface User {
+  id: string;
+  username: string;
+  password: string;
+  userProfile?: UserProfile;
+}
+
+export interface UserProfile {
+  birthDate: Date;
+  bio: string;
+  gender: string;
+  location: string;
+  website: string;
+}
+
 export interface Garage {
   id: number;
   name: string;
