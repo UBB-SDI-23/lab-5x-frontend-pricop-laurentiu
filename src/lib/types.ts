@@ -26,6 +26,7 @@ export interface Garage {
   buses?: any[];
   startingLines?: any[];
   endingLines?: any[];
+  owner?: User;
 }
 
 export interface BiggestGarage {
@@ -33,6 +34,7 @@ export interface BiggestGarage {
   name: string;
   location: string;
   busCount: number;
+  owner?: User;
 }
 
 export enum BusFuel {
@@ -56,6 +58,7 @@ export interface Bus {
   licensePlate: string;
   garageId: number;
   garage?: Garage;
+  owner?: User;
 }
 
 export interface Line {
@@ -69,6 +72,7 @@ export interface Line {
   startGarage?: Garage;
   endGarage?: Garage;
   lineStops?: LineStop[];
+  owner?: User;
 }
 
 export interface Station {
@@ -76,6 +80,7 @@ export interface Station {
   name: string;
 
   lineStops?: LineStop[];
+  owner?: User;
 }
 
 export enum LineStopDirection {
@@ -91,4 +96,5 @@ export interface LineStop {
   isServicedInWeekends: boolean;
   station?: Station;
   line?: Line;
+  owner?: User;
 }

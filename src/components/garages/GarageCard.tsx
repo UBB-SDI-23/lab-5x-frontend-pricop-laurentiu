@@ -3,14 +3,9 @@ import { Garage } from "../../lib/types";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { axios } from "../../lib/axios";
 import Button from "../ui/Button";
+import UserBadge from "../ui/UserBadge";
 
-export default function GarageCard({
-  garage,
-  isNew,
-}: {
-  garage?: Garage;
-  isNew?: boolean;
-}) {
+export default function GarageCard({ garage, isNew }: { garage?: Garage; isNew?: boolean }) {
   const [isEditing, setIsEditing] = useState(false);
   const [currentGarage, setCurrentGarage] = useState<Partial<Garage>>({});
   const queryClient = useQueryClient();
@@ -46,8 +41,7 @@ export default function GarageCard({
     setIsEditing(false);
   };
 
-  const remove = () =>
-    mutation.mutateAsync({ mode: "delete", garage: currentGarage as Garage });
+  const remove = () => mutation.mutateAsync({ mode: "delete", garage: currentGarage as Garage });
 
   useEffect(() => {
     setCurrentGarage(garage ?? {});
@@ -55,10 +49,7 @@ export default function GarageCard({
 
   if (isNew && !isEditing) {
     return (
-      <div
-        className="border rounded-xl border-green-300 p-5 cursor-pointer"
-        onClick={() => setIsEditing(true)}
-      >
+      <div className="border rounded-xl border-green-300 p-5 cursor-pointer" onClick={() => setIsEditing(true)}>
         <Button className="float-right">
           <i className="bi-plus"></i>
         </Button>
@@ -70,10 +61,7 @@ export default function GarageCard({
   if (isEditing) {
     return (
       <div className="border rounded-xl border-yellow-300 p-5">
-        <Button
-          className="float-right mx-1"
-          onClick={() => setIsEditing(false)}
-        >
+        <Button className="float-right mx-1" onClick={() => setIsEditing(false)}>
           <i className="bi-x"></i>
         </Button>
         <Button className="float-right" onClick={save}>
@@ -107,7 +95,8 @@ export default function GarageCard({
         <i className="bi-pencil"></i>
       </Button>
       <div className="text-2xl">{currentGarage.name}</div>
-      <div>located in {currentGarage.location}</div>
+      <div className="mb-2">located in {currentGarage.location}</div>
+      {currentGarage.owner && <UserBadge user={currentGarage.owner} />}
     </div>
   );
 }

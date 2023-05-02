@@ -5,6 +5,7 @@ import { axios } from "../../lib/axios";
 import { useNavigate } from "react-router-dom";
 import Button from "../ui/Button";
 import LineBadge from "./LineBadge";
+import UserBadge from "../ui/UserBadge";
 
 export default function LineCard({ line }: { line: Line }) {
   const queryClient = useQueryClient();
@@ -63,6 +64,7 @@ export default function LineCard({ line }: { line: Line }) {
         <i className="bi-people mr-1"></i>
         {line.monthlyRidership} riders / mo
       </div>
+      {line.owner && <UserBadge user={line.owner} />}
     </div>
   );
 }

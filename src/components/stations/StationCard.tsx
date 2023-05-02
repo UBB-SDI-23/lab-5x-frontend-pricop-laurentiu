@@ -7,6 +7,7 @@ import Button from "../ui/Button";
 import LineBadge from "../lines/LineBadge";
 import { Field, Formik, FormikProps, FormikValues } from "formik";
 import Input from "../ui/Input";
+import UserBadge from "../ui/UserBadge";
 
 export default function StationCard({ station, isNew = false }: { station?: Station; isNew?: boolean }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -79,9 +80,12 @@ export default function StationCard({ station, isNew = false }: { station?: Stat
         <i className="bi-signpost"></i>
         {station!.name}
       </div>
-      {station!.lineStops?.map(stop => (
-        <LineBadge line={stop.line!} className="mr-2" key={stop.id} />
-      ))}
+      <div className="mb-2">
+        {station!.lineStops?.map(stop => (
+          <LineBadge line={stop.line!} className="mr-2" key={stop.id} />
+        ))}
+      </div>
+      {station!.owner && <UserBadge user={station!.owner} />}
     </div>
   );
 }
