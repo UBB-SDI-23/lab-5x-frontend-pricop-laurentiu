@@ -14,8 +14,8 @@ const validationSchema = yup.object({
     .string()
     .required()
     .matches(
-      /^[a-zA-Z_]{3,16}$/,
-      "Your username needs to have only English letters and underscores and be between 3 and 16 characters"
+      /^[a-zA-Z0-9_]{3,16}$/,
+      "Your username needs to have only English letters, numbers and underscores and be between 3 and 16 characters"
     ),
   password: yup
     .string()
