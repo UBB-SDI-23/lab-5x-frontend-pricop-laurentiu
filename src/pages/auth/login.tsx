@@ -67,7 +67,7 @@ export default function LoginPage() {
                 <Field type="password" as={Input} name="password"></Field>
                 {errorComponent("password")}
               </div>
-              <Button type="submit" onClick={props.submitForm} disabled={!props.isValid}>
+              <Button type="submit" onClick={props.submitForm} disabled={props.isSubmitting}>
                 Login
               </Button>
               <Link to="/auth/register" className="text-blue-500">
