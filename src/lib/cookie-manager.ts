@@ -2,6 +2,7 @@ import Cookies from "js-cookie";
 
 interface CookiesMap {
   token: string;
+  paginationSize: number;
 }
 
 type Transformers = {
@@ -20,6 +21,10 @@ const identityTransform = {
 
 const transformers: Transformers = {
   token: identityTransform,
+  paginationSize: {
+    serialize: from => from.toString(),
+    deserialize: from => (from ? parseInt(from) : NaN),
+  },
 };
 
 /**
@@ -28,12 +33,12 @@ const transformers: Transformers = {
 export default class CookieManager {
   static set<K extends keyof CookiesMap>(key: K, val: CookiesMap[K]) {
     const transformed = transformers[key]?.serialize(val) ?? val;
-    Cookies.set(key, transformed);
+    Cookies.set(key, transformed as string);
   }
 
   static get<K extends keyof CookiesMap>(key: K): CookiesMap[K] | undefined {
     const val = Cookies.get(key);
-    return transformers[key]?.deserialize(val) ?? val;
+    return (transformers[key]?.deserialize(val) ?? val) as CookiesMap[K] | undefined;
   }
 
   static unset<K extends keyof CookiesMap>(key: K) {

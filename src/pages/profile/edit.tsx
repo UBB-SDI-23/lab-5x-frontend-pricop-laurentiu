@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "../../components/Layout";
 import { ErrorMessage, Field, Formik, FormikProps } from "formik";
 import * as yup from "yup";
@@ -6,6 +6,8 @@ import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
 import { axios, handleError } from "../../lib/axios";
 import { useNavigate } from "react-router-dom";
+import CookieManager from "../../lib/cookie-manager";
+import { toast } from "react-toastify";
 
 const validationSchema = yup.object({
   bio: yup.string().required(),
@@ -39,6 +41,11 @@ export default function ProfileEditPage() {
     }
   };
 
+  const handlePaginationSubmit = async (values: any) => {
+    CookieManager.set("paginationSize", values.pagSize);
+    toast.success("Page size saved!");
+  };
+
   return (
     <Layout>
       <h1 className="text-4xl mb-2">Edit your profile</h1>
@@ -54,7 +61,7 @@ export default function ProfileEditPage() {
         onSubmit={handleSubmit}
       >
         {(props: FormikProps<Values>) => (
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 mb-5">
             <div className="flex flex-col">
               <label>Bio</label>
               <Field type="text" as="textarea" name="bio" className="border rounded border-purple-400"></Field>
@@ -83,6 +90,27 @@ export default function ProfileEditPage() {
             <Button type="submit" onClick={props.submitForm} disabled={props.isSubmitting}>
               Update
             </Button>
+          </div>
+        )}
+      </Formik>
+      <Formik
+        initialValues={{
+          pagSize: CookieManager.get("paginationSize") ?? 15,
+        }}
+        onSubmit={handlePaginationSubmit}
+      >
+        {(props: FormikProps<any>) => (
+          <div className="flex gap-3 items-end w-full">
+            <div className="flex flex-col flex-grow">
+              <label>Preferred pagination size</label>
+              <Field type="number" as={Input} name="pagSize" className="border"></Field>
+              {errorComponent("pagSize")}
+            </div>
+            <div>
+              <Button type="submit" onClick={props.submitForm}>
+                Save
+              </Button>
+            </div>
           </div>
         )}
       </Formik>
