@@ -18,14 +18,14 @@ export default function ProfilePage() {
       .catch(err => (err.response.status === 404 ? setNotFound(true) : undefined))
   );
 
-  if (isLoading) return <Layout isLoading={true}></Layout>;
-
-  if (notFound || !profile)
+  if (notFound)
     return (
       <Layout>
         {userId === "me" ? "You haven't set up a profile yet." : "This user hasn't set up a profile yet."}
       </Layout>
     );
+
+  if (isLoading || !profile) return <Layout isLoading={true}></Layout>;
 
   return (
     <Layout>
@@ -39,6 +39,21 @@ export default function ProfilePage() {
         <a href={profile.website} className="text-blue-500" target="_blank">
           {profile.website}
         </a>
+      </div>
+      <div className="mb-4 border rounded p-3 px-4">
+        <div className="font-bold">{userId === "me" ? "Your contribution" : "User's contribution"}</div>
+        <div>
+          <i className="bi-bus-front"></i> Buses: {profile._count?.buses}
+        </div>
+        <div>
+          <i className="bi-house"></i> Garages: {profile._count?.garages}
+        </div>
+        <div>
+          <i className="bi-arrow-left-right"></i> Lines: {profile._count?.lines}
+        </div>
+        <div>
+          <i className="bi-signpost"></i> Stations: {profile._count?.stations}
+        </div>
       </div>
     </Layout>
   );
