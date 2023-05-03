@@ -9,11 +9,12 @@ import { useEffect } from "react";
 import Pagination from "../../components/Pagination";
 import useRouteQuery from "../../lib/hooks/useRouteQuery";
 import Button from "../../components/ui/Button";
+import CookieManager from "../../lib/cookie-manager";
 
 export default function GaragesPage() {
   const [query, modifyQuery] = useRouteQuery();
 
-  const take = parseInt(query.take ?? "14");
+  const take = parseInt(query.take ?? CookieManager.get("paginationSize") ?? "14");
   const skip = parseInt(query.skip ?? "0");
   const orderBy = query.orderBy ?? "id";
   const direction = query.direction ?? "asc";

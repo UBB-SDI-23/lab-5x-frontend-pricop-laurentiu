@@ -9,11 +9,12 @@ import Pagination from "../../components/Pagination";
 import { Link } from "react-router-dom";
 import Button from "../../components/ui/Button";
 import StationCard from "../../components/stations/StationCard";
+import CookieManager from "../../lib/cookie-manager";
 
 export default function StationsPage() {
   const [query] = useRouteQuery();
 
-  const take = parseInt(query.take ?? "15");
+  const take = parseInt(query.take ?? CookieManager.get("paginationSize") ?? "15");
   const skip = parseInt(query.skip ?? "0");
 
   const {

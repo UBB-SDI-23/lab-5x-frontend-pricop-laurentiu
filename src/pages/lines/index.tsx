@@ -12,11 +12,12 @@ import Button from "../../components/ui/Button";
 import LineCard from "../../components/lines/LineCard";
 import Input from "../../components/ui/Input";
 import { useDebounce } from "use-debounce";
+import CookieManager from "../../lib/cookie-manager";
 
 export default function LinesPage() {
   const [query] = useRouteQuery();
 
-  const take = parseInt(query.take ?? "16");
+  const take = parseInt(query.take ?? CookieManager.get("paginationSize") ?? "16");
   const skip = parseInt(query.skip ?? "0");
 
   const [isFiltering, setIsFiltering] = useState(false);

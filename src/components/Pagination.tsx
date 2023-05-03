@@ -49,11 +49,13 @@ export default function Pagination({
       <div className="">
         <Select className="h-full" value={take} onChange={ev => setTakeValue(parseInt(ev.target.value))}>
           {/* add take value in the list, remove duplicates, sort list */}
-          {[...new Set([...takeValues, take])].sort().map(takev => (
-            <option value={takev} key={takev}>
-              {takev}
-            </option>
-          ))}
+          {[...new Set([...takeValues, take])]
+            .sort((a, b) => a - b)
+            .map(takev => (
+              <option value={takev} key={takev}>
+                {takev}
+              </option>
+            ))}
         </Select>
       </div>
     </div>

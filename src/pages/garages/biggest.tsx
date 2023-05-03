@@ -6,11 +6,12 @@ import { BiggestGarage, Garage, PaginatedData } from "../../lib/types";
 import useRouteQuery from "../../lib/hooks/useRouteQuery";
 import Pagination from "../../components/Pagination";
 import { useEffect } from "react";
+import CookieManager from "../../lib/cookie-manager";
 
 export default function GaragesBiggestPage() {
   const [query, modifyQuery] = useRouteQuery();
 
-  const take = parseInt(query.take ?? "12");
+  const take = parseInt(query.take ?? CookieManager.get("paginationSize") ?? "12");
   const skip = parseInt(query.skip ?? "0");
 
   const {
