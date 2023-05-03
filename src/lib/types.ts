@@ -17,6 +17,13 @@ export interface UserProfile {
   location: string;
   website: string;
   user?: User;
+  _count?: {
+    buses: number;
+    garages: number;
+    lineStops: number;
+    lines: number;
+    stations: number;
+  };
 }
 
 export interface Garage {
