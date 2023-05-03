@@ -20,6 +20,7 @@ const validationSchema = yup.object({
     .string()
     .required()
     .matches(/[\S{4,}]/, "Your password needs to be at least 4 characters"),
+  email: yup.string().email().required(),
 });
 
 type Values = yup.InferType<typeof validationSchema>;
@@ -46,6 +47,7 @@ export default function AuthRegisterPage() {
         initialValues={{
           username: "",
           password: "",
+          email: "",
         }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
@@ -64,7 +66,12 @@ export default function AuthRegisterPage() {
                 <Field type="password" as={Input} name="password"></Field>
                 {errorComponent("password")}
               </div>
-              <Button type="submit" onClick={props.submitForm} disabled={!props.isValid}>
+              <div className="flex flex-col">
+                <label>Email</label>
+                <Field type="text" as={Input} name="email"></Field>
+                {errorComponent("email")}
+              </div>
+              <Button type="submit" onClick={props.submitForm} disabled={props.isSubmitting}>
                 Register
               </Button>
               <Link to="/auth/login" className="text-blue-500">

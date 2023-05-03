@@ -80,7 +80,7 @@ export default function ProfileEditPage() {
               <Field type="text" as={Input} name="website" className="border"></Field>
               {errorComponent("website")}
             </div>
-            <Button type="submit" onClick={props.submitForm} disabled={!props.isValid || props.isSubmitting}>
+            <Button type="submit" onClick={props.submitForm} disabled={props.isSubmitting}>
               Update
             </Button>
           </div>
