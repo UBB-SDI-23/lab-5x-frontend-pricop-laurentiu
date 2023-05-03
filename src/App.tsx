@@ -18,6 +18,7 @@ import ProfilePage from "./pages/profile";
 import AuthRegisterPage from "./pages/auth/register";
 import AuthThanksPage from "./pages/auth/register/thanks";
 import AuthConfirmPage from "./pages/auth/register/confirm";
+import ProfileEditPage from "./pages/profile/edit";
 
 const router = createBrowserRouter([
   {
@@ -141,6 +142,14 @@ const router = createBrowserRouter([
     element: (
       <AuthRedirect notLoggedIn="/auth/login">
         <ProfilePage />
+      </AuthRedirect>
+    ),
+  },
+  {
+    path: "/profile/edit",
+    element: (
+      <AuthRedirect notLoggedIn="/auth/login">
+        <ProfileEditPage />
       </AuthRedirect>
     ),
   },

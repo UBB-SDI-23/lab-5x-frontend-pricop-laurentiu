@@ -1,9 +1,10 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Layout from "../../components/Layout";
 import { useQuery } from "react-query";
 import { axios, handleError } from "../../lib/axios";
 import { UserProfile } from "../../lib/types";
 import { useState } from "react";
+import Button from "../../components/ui/Button";
 
 export default function ProfilePage() {
   const params = useParams();
@@ -18,10 +19,17 @@ export default function ProfilePage() {
       .catch(err => (err.response.status === 404 ? setNotFound(true) : undefined))
   );
 
+  const EditButton = () => (
+    <Link to="/profile/edit">
+      <Button className="float-right">Edit profile</Button>
+    </Link>
+  );
+
   if (notFound)
     return (
       <Layout>
         {userId === "me" ? "You haven't set up a profile yet." : "This user hasn't set up a profile yet."}
+        <EditButton />
       </Layout>
     );
 
@@ -29,6 +37,7 @@ export default function ProfilePage() {
 
   return (
     <Layout>
+      {userId === "me" && <EditButton />}
       <h1 className="text-4xl mb-4">{profile.user!.username}'s Profile</h1>
       <div className="mb-4">{profile.bio}</div>
       <div className="mb-4">Date of birth: {new Date(profile.birthDate).toDateString()}</div>
