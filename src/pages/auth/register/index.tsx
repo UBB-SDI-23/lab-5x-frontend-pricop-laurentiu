@@ -1,11 +1,11 @@
 import { ErrorMessage, Field, Formik, FormikProps } from "formik";
-import Layout from "../../components/Layout";
-import { useUser } from "../../lib/user-context";
+import Layout from "../../../components/Layout";
+import { useUser } from "../../../lib/user-context";
 import * as yup from "yup";
-import Input from "../../components/ui/Input";
-import Button from "../../components/ui/Button";
-import { axios, handleError, updateAxiosWithToken } from "../../lib/axios";
-import CookieManager from "../../lib/cookie-manager";
+import Input from "../../../components/ui/Input";
+import Button from "../../../components/ui/Button";
+import { axios, handleError, updateAxiosWithToken } from "../../../lib/axios";
+import CookieManager from "../../../lib/cookie-manager";
 import { Link, useNavigate } from "react-router-dom";
 
 const validationSchema = yup.object({
@@ -24,7 +24,7 @@ const validationSchema = yup.object({
 
 type Values = yup.InferType<typeof validationSchema>;
 
-export default function LoginPage() {
+export default function AuthRegisterPage() {
   const user = useUser();
   const navigate = useNavigate();
 
@@ -35,12 +35,9 @@ export default function LoginPage() {
   );
 
   const handleSubmit = async (values: Values) => {
-    const res = await axios.post("/auth/login", values).catch(handleError);
+    const res = await axios.post("/auth/register", values).catch(handleError);
     if (!res) return;
-    CookieManager.set("token", res.data.token);
-    updateAxiosWithToken(res.data.token);
-    user.invalidate();
-    navigate("/buses");
+    navigate("/auth/register/thanks");
   };
 
   return (
@@ -56,7 +53,7 @@ export default function LoginPage() {
         {(props: FormikProps<Values>) => (
           <>
             <div className="flex flex-col gap-2 mx-1 md:max-w-md md:mx-auto">
-              <h1 className="text-lg mb-3">Please login to continue</h1>
+              <h1 className="text-lg mb-3">Make an account</h1>
               <div className="flex flex-col">
                 <label>Username</label>
                 <Field type="text" as={Input} name="username"></Field>
@@ -68,10 +65,10 @@ export default function LoginPage() {
                 {errorComponent("password")}
               </div>
               <Button type="submit" onClick={props.submitForm} disabled={!props.isValid}>
-                Login
+                Register
               </Button>
-              <Link to="/auth/register" className="text-blue-500">
-                Want to register instead?
+              <Link to="/auth/login" className="text-blue-500">
+                Want to login instead?
               </Link>
             </div>
           </>

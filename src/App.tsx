@@ -15,6 +15,9 @@ import LoginPage from "./pages/auth/login";
 import { UserProvider } from "./lib/user-context";
 import AuthRedirect from "./components/AuthRedirect";
 import ProfilePage from "./pages/profile";
+import AuthRegisterPage from "./pages/auth/register";
+import AuthThanksPage from "./pages/auth/register/thanks";
+import AuthConfirmPage from "./pages/auth/register/confirm";
 
 const router = createBrowserRouter([
   {
@@ -22,17 +25,41 @@ const router = createBrowserRouter([
     element: <HomePage />,
   },
   {
-    path: "/login",
+    path: "/auth/login",
     element: (
-      <AuthRedirect loggedIn="/buses">
+      <AuthRedirect loggedIn="/">
         <LoginPage />
+      </AuthRedirect>
+    ),
+  },
+  {
+    path: "/auth/register",
+    element: (
+      <AuthRedirect loggedIn="/">
+        <AuthRegisterPage />
+      </AuthRedirect>
+    ),
+  },
+  {
+    path: "/auth/register/confirm",
+    element: (
+      <AuthRedirect loggedIn="/">
+        <AuthConfirmPage />
+      </AuthRedirect>
+    ),
+  },
+  {
+    path: "/auth/register/thanks",
+    element: (
+      <AuthRedirect loggedIn="/">
+        <AuthThanksPage />
       </AuthRedirect>
     ),
   },
   {
     path: "/garages",
     element: (
-      <AuthRedirect notLoggedIn="/login">
+      <AuthRedirect notLoggedIn="/auth/login">
         <GaragesPage />
       </AuthRedirect>
     ),
@@ -40,7 +67,7 @@ const router = createBrowserRouter([
   {
     path: "/garages/biggest",
     element: (
-      <AuthRedirect notLoggedIn="/login">
+      <AuthRedirect notLoggedIn="/auth/login">
         <GaragesBiggestPage />
       </AuthRedirect>
     ),
@@ -48,7 +75,7 @@ const router = createBrowserRouter([
   {
     path: "/buses",
     element: (
-      <AuthRedirect notLoggedIn="/login">
+      <AuthRedirect notLoggedIn="/auth/login">
         <BusesPage />
       </AuthRedirect>
     ),
@@ -56,7 +83,7 @@ const router = createBrowserRouter([
   {
     path: "/buses/edit/:id",
     element: (
-      <AuthRedirect notLoggedIn="/login">
+      <AuthRedirect notLoggedIn="/auth/login">
         <AddEditBusPage />
       </AuthRedirect>
     ),
@@ -64,7 +91,7 @@ const router = createBrowserRouter([
   {
     path: "/buses/add",
     element: (
-      <AuthRedirect notLoggedIn="/login">
+      <AuthRedirect notLoggedIn="/auth/login">
         <AddEditBusPage />
       </AuthRedirect>
     ),
@@ -72,7 +99,7 @@ const router = createBrowserRouter([
   {
     path: "/lines",
     element: (
-      <AuthRedirect notLoggedIn="/login">
+      <AuthRedirect notLoggedIn="/auth/login">
         <LinesPage />
       </AuthRedirect>
     ),
@@ -80,7 +107,7 @@ const router = createBrowserRouter([
   {
     path: "/lines/edit/:id",
     element: (
-      <AuthRedirect notLoggedIn="/login">
+      <AuthRedirect notLoggedIn="/auth/login">
         <AddEditLinePage />
       </AuthRedirect>
     ),
@@ -88,7 +115,7 @@ const router = createBrowserRouter([
   {
     path: "/lines/add",
     element: (
-      <AuthRedirect notLoggedIn="/login">
+      <AuthRedirect notLoggedIn="/auth/login">
         <AddEditLinePage />
       </AuthRedirect>
     ),
@@ -96,7 +123,7 @@ const router = createBrowserRouter([
   {
     path: "/stations",
     element: (
-      <AuthRedirect notLoggedIn="/login">
+      <AuthRedirect notLoggedIn="/auth/login">
         <StationsPage />
       </AuthRedirect>
     ),
@@ -104,7 +131,7 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: (
-      <AuthRedirect notLoggedIn="/login">
+      <AuthRedirect notLoggedIn="/auth/login">
         <ProfilePage />
       </AuthRedirect>
     ),
@@ -112,7 +139,7 @@ const router = createBrowserRouter([
   {
     path: "/profile/:id",
     element: (
-      <AuthRedirect notLoggedIn="/login">
+      <AuthRedirect notLoggedIn="/auth/login">
         <ProfilePage />
       </AuthRedirect>
     ),
