@@ -19,6 +19,7 @@ import AuthRegisterPage from "./pages/auth/register";
 import AuthThanksPage from "./pages/auth/register/thanks";
 import AuthConfirmPage from "./pages/auth/register/confirm";
 import ProfileEditPage from "./pages/profile/edit";
+import { UserRole } from "./lib/types";
 
 const router = createBrowserRouter([
   {
@@ -60,7 +61,7 @@ const router = createBrowserRouter([
   {
     path: "/garages",
     element: (
-      <AuthRedirect notLoggedIn="/auth/login">
+      <AuthRedirect>
         <GaragesPage />
       </AuthRedirect>
     ),
@@ -68,7 +69,7 @@ const router = createBrowserRouter([
   {
     path: "/garages/biggest",
     element: (
-      <AuthRedirect notLoggedIn="/auth/login">
+      <AuthRedirect>
         <GaragesBiggestPage />
       </AuthRedirect>
     ),
@@ -76,7 +77,7 @@ const router = createBrowserRouter([
   {
     path: "/buses",
     element: (
-      <AuthRedirect notLoggedIn="/auth/login">
+      <AuthRedirect>
         <BusesPage />
       </AuthRedirect>
     ),
@@ -100,7 +101,7 @@ const router = createBrowserRouter([
   {
     path: "/lines",
     element: (
-      <AuthRedirect notLoggedIn="/auth/login">
+      <AuthRedirect>
         <LinesPage />
       </AuthRedirect>
     ),
@@ -124,7 +125,7 @@ const router = createBrowserRouter([
   {
     path: "/stations",
     element: (
-      <AuthRedirect notLoggedIn="/auth/login">
+      <AuthRedirect>
         <StationsPage />
       </AuthRedirect>
     ),

@@ -13,6 +13,7 @@ import LineCard from "../../components/lines/LineCard";
 import Input from "../../components/ui/Input";
 import { useDebounce } from "use-debounce";
 import CookieManager from "../../lib/cookie-manager";
+import { useUser } from "../../lib/user-context";
 
 export default function LinesPage() {
   const [query] = useRouteQuery();
@@ -23,6 +24,7 @@ export default function LinesPage() {
   const [isFiltering, setIsFiltering] = useState(false);
   const [filter, setFilter] = useState(0);
   const [debouncedFilter] = useDebounce(filter, 500);
+  const user = useUser();
 
   const {
     data: lines,
@@ -41,11 +43,13 @@ export default function LinesPage() {
 
   return (
     <Layout>
-      <Link to="/lines/add">
-        <Button type="button" className="float-right">
-          Add
-        </Button>
-      </Link>
+      {!!user.user && (
+        <Link to="/lines/add">
+          <Button type="button" className="float-right">
+            Add
+          </Button>
+        </Link>
+      )}
       <h1 className="text-4xl mb-4">Lines</h1>
 
       {isFetching && <LoadingSpinner />}

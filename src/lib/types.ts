@@ -3,10 +3,17 @@ export interface PaginatedData<T> {
   total: number;
 }
 
+export enum UserRole {
+  regular = "regular",
+  moderator = "moderator",
+  admin = "admin",
+}
+
 export interface User {
-  id: string;
+  id: number;
   username: string;
   password: string;
+  role: UserRole;
   userProfile?: UserProfile;
 }
 
@@ -16,6 +23,7 @@ export interface UserProfile {
   gender: string;
   location: string;
   website: string;
+  ownerId: number;
   user?: User;
   _count?: {
     buses: number;
@@ -30,6 +38,7 @@ export interface Garage {
   id: number;
   name: string;
   location: string;
+  ownerId: number;
   buses?: any[];
   startingLines?: any[];
   endingLines?: any[];
@@ -64,6 +73,7 @@ export interface Bus {
   inventoryNum: string;
   licensePlate: string;
   garageId: number;
+  ownerId: number;
   garage?: Garage;
   owner?: User;
 }
@@ -76,6 +86,7 @@ export interface Line {
   monthlyRidership: number;
   startGarageId: number;
   endGarageId: number;
+  ownerId: number;
   startGarage?: Garage;
   endGarage?: Garage;
   lineStops?: LineStop[];
@@ -85,6 +96,7 @@ export interface Line {
 export interface Station {
   id: number;
   name: string;
+  ownerId: number;
 
   lineStops?: LineStop[];
   owner?: User;
@@ -101,6 +113,7 @@ export interface LineStop {
   lineId: number;
   direction: LineStopDirection;
   isServicedInWeekends: boolean;
+  ownerId: number;
   station?: Station;
   line?: Line;
   owner?: User;

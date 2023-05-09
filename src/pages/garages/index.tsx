@@ -10,6 +10,7 @@ import Pagination from "../../components/Pagination";
 import useRouteQuery from "../../lib/hooks/useRouteQuery";
 import Button from "../../components/ui/Button";
 import CookieManager from "../../lib/cookie-manager";
+import { useUser } from "../../lib/user-context";
 
 export default function GaragesPage() {
   const [query, modifyQuery] = useRouteQuery();
@@ -18,6 +19,7 @@ export default function GaragesPage() {
   const skip = parseInt(query.skip ?? "0");
   const orderBy = query.orderBy ?? "id";
   const direction = query.direction ?? "asc";
+  const user = useUser();
 
   const {
     data: garages,
@@ -62,7 +64,7 @@ export default function GaragesPage() {
           {garages.data.map(garage => (
             <GarageCard key={garage.id} garage={garage} />
           ))}
-          <GarageCard isNew={true} />
+          {!!user.user && <GarageCard isNew={true} />}
         </div>
       )}
     </Layout>

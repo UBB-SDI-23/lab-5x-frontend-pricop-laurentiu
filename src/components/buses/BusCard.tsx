@@ -1,9 +1,11 @@
-import { Bus, BusFuel } from "../../lib/types";
+import { Bus, BusFuel, UserRole } from "../../lib/types";
 import { useMutation, useQueryClient } from "react-query";
 import { axios } from "../../lib/axios";
 import { useNavigate } from "react-router-dom";
 import Button from "../ui/Button";
 import UserBadge from "../ui/UserBadge";
+import { useUser } from "../../lib/user-context";
+import canUserEdit from "../../lib/role-helpers";
 
 export default function BusCard({ bus }: { bus: Bus }) {
   const queryClient = useQueryClient();
@@ -13,20 +15,25 @@ export default function BusCard({ bus }: { bus: Bus }) {
       queryClient.invalidateQueries(["bus"]);
     },
   });
+  const user = useUser();
 
   const remove = () => mutation.mutateAsync({ mode: "delete" });
 
   return (
     <div className="group border rounded-xl border-slate-200 p-5">
-      <Button className="opacity-0 group-hover:opacity-100 float-right mx-1" onClick={remove}>
-        <i className="bi-trash"></i>
-      </Button>
-      <Button
-        className="opacity-0 group-hover:opacity-100 float-right"
-        onClick={() => navigate(`/buses/edit/${bus.id}`)}
-      >
-        <i className="bi-pencil"></i>
-      </Button>
+      {canUserEdit(user.user, bus) && (
+        <>
+          <Button className="opacity-0 group-hover:opacity-100 float-right mx-1" onClick={remove}>
+            <i className="bi-trash"></i>
+          </Button>
+          <Button
+            className="opacity-0 group-hover:opacity-100 float-right"
+            onClick={() => navigate(`/buses/edit/${bus.id}`)}
+          >
+            <i className="bi-pencil"></i>
+          </Button>
+        </>
+      )}
       <div className="flex gap-1">
         <i className="bi-bus-front"></i>
         {bus.fuel === BusFuel.diesel && <i className="bi-fuel-pump"></i>}

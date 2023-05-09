@@ -4,11 +4,14 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { axios } from "../../lib/axios";
 import Button from "../ui/Button";
 import UserBadge from "../ui/UserBadge";
+import canUserEdit from "../../lib/role-helpers";
+import { useUser } from "../../lib/user-context";
 
 export default function GarageCard({ garage, isNew }: { garage?: Garage; isNew?: boolean }) {
   const [isEditing, setIsEditing] = useState(false);
   const [currentGarage, setCurrentGarage] = useState<Partial<Garage>>({});
   const queryClient = useQueryClient();
+  const user = useUser();
   const mutation = useMutation(
     ({ mode, garage }: { mode: "add" | "edit" | "delete"; garage: Garage }) =>
       mode === "add"
@@ -88,12 +91,16 @@ export default function GarageCard({ garage, isNew }: { garage?: Garage; isNew?:
 
   return (
     <div className="border rounded-xl border-slate-200 p-5">
-      <Button className="float-right mx-1" onClick={remove}>
-        <i className="bi-trash"></i>
-      </Button>
-      <Button className="float-right" onClick={() => setIsEditing(true)}>
-        <i className="bi-pencil"></i>
-      </Button>
+      {canUserEdit(user.user, garage!) && (
+        <>
+          <Button className="float-right mx-1" onClick={remove}>
+            <i className="bi-trash"></i>
+          </Button>
+          <Button className="float-right" onClick={() => setIsEditing(true)}>
+            <i className="bi-pencil"></i>
+          </Button>
+        </>
+      )}
       <div className="text-2xl">{currentGarage.name}</div>
       <div className="mb-2">located in {currentGarage.location}</div>
       {currentGarage.owner && <UserBadge user={currentGarage.owner} />}
