@@ -39,12 +39,16 @@ export default function Layout({ children, isLoading = false }: { isLoading?: bo
             </Link>
           ))}
           <span className="mr-auto"></span>
-          {user.user && (
+          {user.user ? (
             <>
               <div className="mr-2">
                 Logged in as <Link to="/profile">{user.user!.username}</Link>
               </div>
               <button onClick={user.logout}>Logout</button>
+            </>
+          ) : (
+            <>
+              <Link to="/auth/login">Login</Link>
             </>
           )}
           {/* <span className="px-3">Logout</span> */}

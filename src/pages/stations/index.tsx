@@ -10,12 +10,14 @@ import { Link } from "react-router-dom";
 import Button from "../../components/ui/Button";
 import StationCard from "../../components/stations/StationCard";
 import CookieManager from "../../lib/cookie-manager";
+import { useUser } from "../../lib/user-context";
 
 export default function StationsPage() {
   const [query] = useRouteQuery();
 
   const take = parseInt(query.take ?? CookieManager.get("paginationSize") ?? "15");
   const skip = parseInt(query.skip ?? "0");
+  const user = useUser();
 
   const {
     data: stations,
@@ -43,7 +45,7 @@ export default function StationsPage() {
             {stations.data.map(station => (
               <StationCard station={station} key={station.id} />
             ))}
-            <StationCard isNew={true} />
+            {user.user && <StationCard isNew={true} />}
           </div>
           <Pagination className="mb-3" take={take} total={stations!.total} />
         </>

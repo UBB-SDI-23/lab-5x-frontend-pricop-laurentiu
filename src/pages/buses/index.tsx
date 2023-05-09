@@ -10,12 +10,14 @@ import BusCard from "../../components/buses/BusCard";
 import { Link } from "react-router-dom";
 import Button from "../../components/ui/Button";
 import CookieManager from "../../lib/cookie-manager";
+import { useUser } from "../../lib/user-context";
 
 export default function BusesPage() {
   const [query] = useRouteQuery();
 
   const take = parseInt(query.take ?? CookieManager.get("paginationSize") ?? "15");
   const skip = parseInt(query.skip ?? "0");
+  const user = useUser();
 
   const {
     data: buses,
@@ -32,11 +34,13 @@ export default function BusesPage() {
 
   return (
     <Layout>
-      <Link to="/buses/add">
-        <Button type="button" className="float-right">
-          Add
-        </Button>
-      </Link>
+      {!!user.user && (
+        <Link to="/buses/add">
+          <Button type="button" className="float-right">
+            Add
+          </Button>
+        </Link>
+      )}
       <h1 className="text-4xl mb-4">Buses</h1>
 
       {isFetching && <LoadingSpinner />}

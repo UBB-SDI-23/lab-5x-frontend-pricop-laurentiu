@@ -8,11 +8,13 @@ import LineBadge from "../lines/LineBadge";
 import { Field, Formik, FormikProps, FormikValues } from "formik";
 import Input from "../ui/Input";
 import UserBadge from "../ui/UserBadge";
+import { useUser } from "../../lib/user-context";
+import canUserEdit from "../../lib/role-helpers";
 
 export default function StationCard({ station, isNew = false }: { station?: Station; isNew?: boolean }) {
   const [isEditing, setIsEditing] = useState(false);
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const user = useUser();
 
   const mutation = useMutation(
     ({ mode, station }: { mode: "add" | "edit" | "delete"; station: Pick<Station, "id" | "name"> }) =>
@@ -70,12 +72,16 @@ export default function StationCard({ station, isNew = false }: { station?: Stat
 
   return (
     <div className="group border rounded-xl border-slate-200 p-5">
-      <Button className="opacity-0 group-hover:opacity-100 float-right mx-1" onClick={remove}>
-        <i className="bi-trash"></i>
-      </Button>
-      <Button className="opacity-0 group-hover:opacity-100 float-right" onClick={() => setIsEditing(true)}>
-        <i className="bi-pencil"></i>
-      </Button>
+      {canUserEdit(user.user, station!) && (
+        <>
+          <Button className="opacity-0 group-hover:opacity-100 float-right mx-1" onClick={remove}>
+            <i className="bi-trash"></i>
+          </Button>
+          <Button className="opacity-0 group-hover:opacity-100 float-right" onClick={() => setIsEditing(true)}>
+            <i className="bi-pencil"></i>
+          </Button>
+        </>
+      )}
       <div className="flex gap-2 font-medium mb-2">
         <i className="bi-signpost"></i>
         {station!.name}

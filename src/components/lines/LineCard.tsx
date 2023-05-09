@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
-import { Bus, BusFuel, Garage, Line, LineStopDirection } from "../../lib/types";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { Line, LineStopDirection } from "../../lib/types";
+import { useMutation, useQueryClient } from "react-query";
 import { axios } from "../../lib/axios";
 import { useNavigate } from "react-router-dom";
 import Button from "../ui/Button";
 import LineBadge from "./LineBadge";
 import UserBadge from "../ui/UserBadge";
+import canUserEdit from "../../lib/role-helpers";
+import { useUser } from "../../lib/user-context";
 
 export default function LineCard({ line }: { line: Line }) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const user = useUser();
   const mutation = useMutation((_: { mode: "delete" }) => axios.delete(`/line/${line!.id}`), {
     onSuccess() {
       queryClient.invalidateQueries(["line"]);
@@ -20,15 +22,19 @@ export default function LineCard({ line }: { line: Line }) {
 
   return (
     <div className="group border rounded-xl border-slate-200 p-5">
-      <Button className="opacity-0 group-hover:opacity-100 float-right mx-1" onClick={remove}>
-        <i className="bi-trash"></i>
-      </Button>
-      <Button
-        className="opacity-0 group-hover:opacity-100 float-right"
-        onClick={() => navigate(`/lines/edit/${line.id}`)}
-      >
-        <i className="bi-pencil"></i>
-      </Button>
+      {canUserEdit(user.user, line) && (
+        <>
+          <Button className="opacity-0 group-hover:opacity-100 float-right mx-1" onClick={remove}>
+            <i className="bi-trash"></i>
+          </Button>
+          <Button
+            className="opacity-0 group-hover:opacity-100 float-right"
+            onClick={() => navigate(`/lines/edit/${line.id}`)}
+          >
+            <i className="bi-pencil"></i>
+          </Button>
+        </>
+      )}
       <div className="mb-1">
         <LineBadge line={line} />
       </div>
