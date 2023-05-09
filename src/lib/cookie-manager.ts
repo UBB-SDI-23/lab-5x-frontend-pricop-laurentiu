@@ -9,7 +9,7 @@ type Transformers = {
   [K in keyof CookiesMap]:
     | {
         serialize: (from: CookiesMap[K]) => string;
-        deserialize: (from: string | undefined) => CookiesMap[K];
+        deserialize: (from: string | undefined) => CookiesMap[K] | undefined;
       }
     | undefined;
 };
@@ -23,7 +23,7 @@ const transformers: Transformers = {
   token: identityTransform,
   paginationSize: {
     serialize: from => from.toString(),
-    deserialize: from => (from ? parseInt(from) : NaN),
+    deserialize: from => (from ? parseInt(from) : undefined),
   },
 };
 
