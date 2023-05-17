@@ -1,0 +1,21 @@
+version: '3.9'
+services:
+  nginx-prod:
+    build:
+      dockerfile: Dockerfile.prod
+    ports:
+      - '${PORT}:80'
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    profiles: [prod]
+
+  nginx-local:
+    build:
+      dockerfile: Dockerfile.local
+    ports:
+      - '5173:5173'
+    volumes:
+      - ./:/code:rw
+    command: npx vite --host 0.0.0.0
+    profiles: [local]
+    

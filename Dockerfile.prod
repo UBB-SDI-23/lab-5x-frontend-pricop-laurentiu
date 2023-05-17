@@ -1,0 +1,19 @@
+
+FROM node:18
+WORKDIR /code
+
+COPY *.json .
+COPY *.js .
+COPY *.ts .
+COPY index.html .
+COPY src src
+
+ENV VITE_API_BASE=http://localhost:3021
+
+RUN npm i
+RUN npm run build
+
+FROM nginx
+EXPOSE 80
+
+COPY --from=0 /code/dist /usr/share/nginx/html
