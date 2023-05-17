@@ -21,6 +21,11 @@ const links = [
     href: "/stations",
     text: "Stations",
   },
+  {
+    href: "/admin",
+    text: "Admin",
+    ifRoles: ["admin"],
+  },
 ];
 
 export default function Layout({ children, isLoading = false }: { isLoading?: boolean } & PropsWithChildren) {
@@ -33,11 +38,13 @@ export default function Layout({ children, isLoading = false }: { isLoading?: bo
           <span className="font-bold mr-3">
             <Link to="/">UBB MPP</Link>
           </span>
-          {links.map(link => (
-            <Link key={link.href} to={link.href} className="px-3">
-              {link.text}
-            </Link>
-          ))}
+          {links
+            .filter(l => (l.ifRoles ? l.ifRoles.includes(user.user?.role ?? "") : true))
+            .map(link => (
+              <Link key={link.href} to={link.href} className="px-3">
+                {link.text}
+              </Link>
+            ))}
           <span className="mr-auto"></span>
           {user.user ? (
             <>

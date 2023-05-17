@@ -20,6 +20,7 @@ import AuthThanksPage from "./pages/auth/register/thanks";
 import AuthConfirmPage from "./pages/auth/register/confirm";
 import ProfileEditPage from "./pages/profile/edit";
 import { UserRole } from "./lib/types";
+import AdminPage from "./pages/admin";
 
 const router = createBrowserRouter([
   {
@@ -151,6 +152,14 @@ const router = createBrowserRouter([
     element: (
       <AuthRedirect notLoggedIn="/auth/login">
         <ProfileEditPage />
+      </AuthRedirect>
+    ),
+  },
+  {
+    path: "/admin",
+    element: (
+      <AuthRedirect notLoggedIn="/auth/login" allowedRoles={[UserRole.admin]}>
+        <AdminPage />
       </AuthRedirect>
     ),
   },

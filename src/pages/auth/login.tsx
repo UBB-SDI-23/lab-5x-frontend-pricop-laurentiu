@@ -9,13 +9,11 @@ import CookieManager from "../../lib/cookie-manager";
 import { Link, useNavigate } from "react-router-dom";
 
 const validationSchema = yup.object({
-  username: yup
-    .string()
-    .required()
-    .matches(
-      /^[a-zA-Z0-9_]{3,40}$/,
-      "Your username needs to have only English letters, numbers and underscores and be between 3 and 40 characters"
-    ),
+  username: yup.string().required(),
+  // .matches(
+  //   /^[a-zA-Z0-9_]{3,40}$/,
+  //   "Your username needs to have only English letters, numbers and underscores and be between 3 and 40 characters"
+  // ),
   password: yup
     .string()
     .required()

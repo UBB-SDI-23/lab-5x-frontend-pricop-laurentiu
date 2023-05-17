@@ -69,6 +69,7 @@ export default function AddEditBusPage() {
           licensePlate: "",
           fuel: BusFuel.diesel,
           garageId: 0,
+          ownerId: 0,
           ...bus,
         }}
         validationSchema={validationSchema}

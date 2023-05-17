@@ -14,12 +14,12 @@ import { useUser } from "../../lib/user-context";
 
 export default function GaragesPage() {
   const [query, modifyQuery] = useRouteQuery();
+  const user = useUser();
 
-  const take = parseInt(query.take ?? CookieManager.get("paginationSize") ?? "14");
+  const take = parseInt(query.take ?? user.user?.paginationPreference ?? CookieManager.get("paginationSize") ?? "14");
   const skip = parseInt(query.skip ?? "0");
   const orderBy = query.orderBy ?? "id";
   const direction = query.direction ?? "asc";
-  const user = useUser();
 
   const {
     data: garages,

@@ -17,14 +17,14 @@ import { useUser } from "../../lib/user-context";
 
 export default function LinesPage() {
   const [query] = useRouteQuery();
+  const user = useUser();
 
-  const take = parseInt(query.take ?? CookieManager.get("paginationSize") ?? "16");
+  const take = parseInt(query.take ?? user.user?.paginationPreference ?? CookieManager.get("paginationSize") ?? "16");
   const skip = parseInt(query.skip ?? "0");
 
   const [isFiltering, setIsFiltering] = useState(false);
   const [filter, setFilter] = useState(0);
   const [debouncedFilter] = useDebounce(filter, 500);
-  const user = useUser();
 
   const {
     data: lines,

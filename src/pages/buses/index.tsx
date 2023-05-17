@@ -14,10 +14,10 @@ import { useUser } from "../../lib/user-context";
 
 export default function BusesPage() {
   const [query] = useRouteQuery();
-
-  const take = parseInt(query.take ?? CookieManager.get("paginationSize") ?? "15");
-  const skip = parseInt(query.skip ?? "0");
   const user = useUser();
+
+  const take = parseInt(query.take ?? user.user?.paginationPreference ?? CookieManager.get("paginationSize") ?? "15");
+  const skip = parseInt(query.skip ?? "0");
 
   const {
     data: buses,

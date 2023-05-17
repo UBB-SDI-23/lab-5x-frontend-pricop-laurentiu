@@ -14,6 +14,8 @@ export interface User {
   username: string;
   password: string;
   role: UserRole;
+  email?: string;
+  paginationPreference?: number;
   userProfile?: UserProfile;
 }
 

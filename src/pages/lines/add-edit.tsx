@@ -73,6 +73,7 @@ export default function AddEditLinePage() {
           endGarageId: line?.endGarageId ?? 0,
           startGarage: line?.startGarage,
           endGarage: line?.endGarage,
+          ownerId: 0,
         }}
         validationSchema={validationSchema}
         onSubmit={saveChanges as any}
