@@ -24,6 +24,10 @@ const links = [
     text: "Stations",
   },
   {
+    href: "/chat",
+    text: "Chat",
+  },
+  {
     href: "/admin",
     text: "Admin",
     ifRoles: ["admin"],

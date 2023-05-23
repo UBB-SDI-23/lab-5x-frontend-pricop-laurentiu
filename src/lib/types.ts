@@ -120,3 +120,12 @@ export interface LineStop {
   line?: Line;
   owner?: User;
 }
+
+export interface ChatMessage {
+  id: number;
+  userId: number;
+  nickname: string;
+  text: string;
+  timestamp: string | Date;
+  user?: User;
+}

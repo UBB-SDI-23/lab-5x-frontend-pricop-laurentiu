@@ -21,6 +21,7 @@ import AuthConfirmPage from "./pages/auth/register/confirm";
 import ProfileEditPage from "./pages/profile/edit";
 import { UserRole } from "./lib/types";
 import AdminPage from "./pages/admin";
+import ChatPage from "./pages/chat";
 
 const router = createBrowserRouter([
   {
@@ -161,6 +162,12 @@ const router = createBrowserRouter([
       <AuthRedirect notLoggedIn="/auth/login" allowedRoles={[UserRole.admin]}>
         <AdminPage />
       </AuthRedirect>
+    ),
+  },
+  {
+    path: "/chat",
+    element: (
+      <ChatPage />
     ),
   },
 ]);
