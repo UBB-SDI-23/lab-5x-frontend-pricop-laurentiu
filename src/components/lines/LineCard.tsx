@@ -20,6 +20,16 @@ export default function LineCard({ line }: { line: Line }) {
 
   const remove = () => mutation.mutateAsync({ mode: "delete" });
 
+  const onEstimationClick = async () => {
+    const est = await axios.get(`/line/${line!.id}/estimations`).then(d => d.data);
+    alert(
+      `This line would need a recommended amount of:\n` +
+        `${est.diesel} Diesel buses, or\n` +
+        `${est.cable} Trolley buses, or\n` +
+        `${est.battery} Battery-Electric buses`
+    );
+  };
+
   return (
     <div className="group border rounded-xl border-slate-200 p-5">
       {canUserEdit(user.user, line) && (
@@ -32,6 +42,9 @@ export default function LineCard({ line }: { line: Line }) {
             onClick={() => navigate(`/lines/edit/${line.id}`)}
           >
             <i className="bi-pencil"></i>
+          </Button>
+          <Button className="opacity-0 group-hover:opacity-100 float-right mx-1" onClick={onEstimationClick}>
+            <i className="bi-bus-front"></i>
           </Button>
         </>
       )}
